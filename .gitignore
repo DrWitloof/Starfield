@@ -3,3 +3,12 @@
 ################################################################################
 
 /.vs
+/obj/Debug
+/bin/Starfield_debug.pdb
+/bin/Starfield_debug.lib
+/bin/Starfield_debug.ilk
+/bin/Starfield_debug.exp
+/bin/Starfield_debug.exe
+/bin/FreeImage.dll
+/bin/fmodexL.dll
+/bin/fmodex.dll
