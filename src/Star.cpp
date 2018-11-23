@@ -3,6 +3,7 @@
 #include <random>
 
 ofParameter<ofColor> Star::color_;
+ofParameter<float> Star::lerpspeed_; 
 ofParameter<float> Star::dev_;
 ofParameter<float> Star::speed_;
 ofParameter<float> Star::radius_step_;
@@ -19,7 +20,7 @@ Star::~Star()
 
 void Star::draw()
 {
-	ofSetColor(color_);
+	ofSetColor(star_color_);
 	ofDrawCircle(xpos_, ypos_, radius_);
 }
 
@@ -27,10 +28,10 @@ void Star::update()
 {
 	xpos_ += speed_ * xstep_;
 	ypos_ += speed_ * ystep_;
-	radius_ += sqrt(speed_) * radius_step_;
+	radius_ += (speed_ > 0 ? sqrt(speed_) : -sqrt(-speed_))* radius_step_;
 
-	xstep_ *= 1.0f + 2 * radius_ / 100;
-	ystep_ *= 1.0f + 2 * radius_ / 100;
+	xstep_ *= 1.0f + 3.0f / 100.0f;
+	ystep_ *= 1.0f + 3.0f / 100.0f;
 
 	if (xpos_ < 0 || ypos_ < 0 || 
 		xpos_ >  ofGetWidth() || ypos_ >  ofGetHeight())
@@ -58,6 +59,11 @@ void Star::setup()
 
 void Star::init(float xpos, float ypos, float radius)
 {
+	static ofColor lastColor(0, 0, 0);
+
+	lastColor.lerp(color_, lerpspeed_);
+	star_color_ = lastColor;
+
 	xpos_ = xpos;
 	ypos_ = ypos;
 	radius_ = radius;
