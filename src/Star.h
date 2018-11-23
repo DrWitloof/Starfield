@@ -13,10 +13,12 @@ public:
 	void update();
 
 	static ofParameter<ofColor> color_;
+	static ofParameter<float> lerpspeed_;
+	static ofParameter<bool> random_colors_;
 	static ofParameter<float> speed_;
 	static ofParameter<float> radius_step_;
 	static ofParameter<float> dev_;
-	static ofParameter<float> lerpspeed_;
+
 
 
 // private:

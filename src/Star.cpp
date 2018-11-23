@@ -4,6 +4,7 @@
 
 ofParameter<ofColor> Star::color_;
 ofParameter<float> Star::lerpspeed_; 
+ofParameter<bool> Star::random_colors_;
 ofParameter<float> Star::dev_;
 ofParameter<float> Star::speed_;
 ofParameter<float> Star::radius_step_;
@@ -61,7 +62,11 @@ void Star::init(float xpos, float ypos, float radius)
 {
 	static ofColor lastColor(0, 0, 0);
 
-	lastColor.lerp(color_, lerpspeed_);
+	if(random_colors_) 
+		lastColor.set(ofRandom(0, 255), ofRandom(0, 255), ofRandom(0, 255), ofRandom(0, 255)); 
+	else 
+		lastColor.lerp(color_, lerpspeed_);
+
 	star_color_ = lastColor;
 
 	xpos_ = xpos;
