@@ -13,9 +13,13 @@ public:
 	void update();
 
 	static ofParameter<ofColor> color_;
+	static ofParameter<float> lerpspeed_;
+	static ofParameter<bool> random_colors_;
 	static ofParameter<float> speed_;
 	static ofParameter<float> radius_step_;
 	static ofParameter<float> dev_;
+
+
 
 // private:
 
@@ -29,6 +33,7 @@ public:
 	float radius_;
 	float xstep_;
 	float ystep_;
+	ofColor star_color_;
 
 	float give_random(float min_val, float max_val, float dev);
 };
