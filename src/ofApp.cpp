@@ -1,77 +1,63 @@
 #include "ofApp.h"
 
-
 //--------------------------------------------------------------
-<<<<<<< HEAD
 void ofApp::setup()
 {
-	framerate.addListener(this, &ofApp::framerateChanged);
-	gui.setup();
-	gui.add(Star::color_.set("color", ofColor(100, 100, 140), ofColor(0, 250), ofColor(250, 250)));
-	gui.add(Star::dev_.set("deviation", 0.1f, 0.001f, 1.0f));
-	gui.add(framerate.set("framerate", 60, 1, 60));
-=======
-void ofApp::setup(){
->>>>>>> 11a670564e35367c1eef59f108ea748e06f9fa66
+	numberOfStars_.addListener(this, &ofApp::numberOfStarsChanged);
+
+	gui_.setup();
+	gui_.add(Star::color_.set("color", ofColor(100, 100, 140), ofColor(0, 250), ofColor(250, 250)));
+	gui_.add(Star::dev_.set("deviation", 0.1f, 0.001f, 1.0f));
+	gui_.add(Star::speed_.set("speed", 2.0f, 0.0f, 4.0f));
+	gui_.add(Star::radius_step_.set("radius growth speed", 0.01f, 0.001f, 0.5f));
+	gui_.add(numberOfStars_.set("# stars", defaultNumberOfStars, minNumberOfStars, maxNumberOfStars));
 
 	ofSetCircleResolution(50);
 	ofBackground(0, 0, 0);
 	ofSetWindowTitle("starfield");
 
-<<<<<<< HEAD
-	ofSetFrameRate(framerate); 
+	ofSetFrameRate(framerate_); 
 
-	for (int i = 0; i < 3; i++)
-	{
-		Star *star = new Star();
-		star->setup();
-=======
-	ofSetFrameRate(60); // if vertical sync is off, we can go a bit fast... this caps the framerate at 60fps.
-
-	for (int i = 0; i < 200; i++)
-	{
-		Star *star = new Star();
-		star->initRandom();
->>>>>>> 11a670564e35367c1eef59f108ea748e06f9fa66
-		stars_.push_back(star);
-	}
+	for (int i = 0; i < numberOfStars_; i++) stars_[i].setup();
 }
 
 //--------------------------------------------------------------
 void ofApp::update()
 {
-<<<<<<< HEAD
-	for (auto star : stars_) star->update();
-=======
-	for (auto star : stars_) star->step();
->>>>>>> 11a670564e35367c1eef59f108ea748e06f9fa66
+	for (int i = 0; i < numberOfStars_; i++) stars_[i].update();
+	
+	static int log_step = 0;
+	if (!(log_step = ++log_step % 60))
+	{
+		double total_xstep = 0, total_ystep = 0;
+		for (int i = 0; i < numberOfStars_; i++) 
+		{
+			total_xstep += abs(stars_[i].xstep_); 
+			total_xstep += abs(stars_[i].ystep_);
+		}
+
+		cout << "avg speed = " <<  (sqrt(pow(total_xstep, 2) + pow(total_ystep, 2)) / numberOfStars_) << endl;
+	}
 }
 
 //--------------------------------------------------------------
 void ofApp::draw()
 {
-	for (auto star : stars_) star->draw();
-<<<<<<< HEAD
-	gui.draw();
+	for (int i = 0; i < numberOfStars_; i++) stars_[i].draw();
+	gui_.draw();
 }
 
-void ofApp::framerateChanged(int & circleResolution) 
+
+void ofApp::numberOfStarsChanged(int & numberOfStars)
 {
-	ofSetFrameRate(framerate);
-=======
->>>>>>> 11a670564e35367c1eef59f108ea748e06f9fa66
+	static int previousValue = defaultNumberOfStars;
+	for (int i = previousValue; i < numberOfStars; i++) stars_[i].setup();
+	cout << "numberOfStarsChanged from " << previousValue << " to " << numberOfStars << endl;
+	previousValue = numberOfStars;
 }
-
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key)
 {
-	Star *star = new Star();
-<<<<<<< HEAD
-	star->setup();
-=======
-	star->initRandom();
->>>>>>> 11a670564e35367c1eef59f108ea748e06f9fa66
-	stars_.push_back(star);
 }
 
 //--------------------------------------------------------------
