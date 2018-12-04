@@ -29,6 +29,6 @@ public:
 	void numberOfStarsChanged(int & numberOfStars);
 
 private:
-	enum { minNumberOfStars = 1, defaultNumberOfStars = 3, maxNumberOfStars = 200 };
+	enum { minNumberOfStars = 1, defaultNumberOfStars = 50, maxNumberOfStars = 200 };
 	Star stars_[maxNumberOfStars];
 };

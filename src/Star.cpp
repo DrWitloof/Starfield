@@ -3,7 +3,7 @@
 #include <random>
 
 ofParameter<ofColor> Star::color_;
-ofParameter<float> Star::lerpspeed_; 
+ofParameter<float> Star::lerpspeed_ = 0.005f; 
 ofParameter<bool> Star::random_colors_;
 ofParameter<float> Star::dev_;
 ofParameter<float> Star::speed_;
